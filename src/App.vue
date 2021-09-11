@@ -31,7 +31,8 @@
       return {
         api_key: '7f969b4e4cd395bbf697ef76cc218216',
         city: "Madrid",
-        weather: {}
+        weather: {},
+        daily: {}
       }
     },
     created() {
@@ -42,13 +43,18 @@
         axios.get(`https://api.openweathermap.org/data/2.5/onecall?lon=2.159&lat=41.3888&units=metric&appid=${this.api_key}`)
         .then(response => {
           console.log(response.data);
+          console.log(response.data.daily.slice(0, 6));
           this.setResults(response.data);
+          this.setDaily(response.data.daily.slice(0, 6))
         });
       },
 
       setResults (results) {
         this.weather = results
-        console.log(this.weather.current.temp)
+      },
+
+      setDaily (results) {
+        this.daily = results
       },
 
       toTextualDescription(degree){
