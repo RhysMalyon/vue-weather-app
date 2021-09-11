@@ -14,9 +14,14 @@
               <li>Humidity: {{ weather.current.humidity }}%</li>
               <li>UVI: {{ weather.current.uvi }}</li>
               <li>Wind: {{ toTextualDescription(weather.current.wind_deg) }} {{ weather.current.wind_speed }}km/h</li>
+              <li>Test: {{ Math.round(daily[1].temp.max) }}°C</li>
             </ul>
           </div>
           <div class="weather">{{ weather.current.weather[0].main }}</div>
+        </div>
+        <div class="forecast-box" v-for="days in daily" v-bind:key="days.id">
+          <li>Max: {{ Math.round(days.temp.max) }}°C</li>
+          <li>Min: {{ Math.round(days.temp.min) }}°C</li>
         </div>
       </div>
     </main>
