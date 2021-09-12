@@ -37,7 +37,6 @@
 
 <script>
   import axios from "axios"
-  import Icon from "@/components/Icon.vue"
   
   export default {
     name: "App",
@@ -50,9 +49,6 @@
     },
     created() {
       this.getWeather();
-    },
-    components: {
-      Icon
     },
     methods: {
       getWeather() {
