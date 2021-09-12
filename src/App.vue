@@ -1,28 +1,30 @@
 <template>
   <div id="app">
     <main>
-      <div class="weather-wrap" v-if="typeof weather !='undefined'">
+      <div class="weather-container" v-if="typeof weather !='undefined'">
+        <div class="weather-current">
+          <div class="weather"><icon :name="weather.current.weather[0].icon"></icon> {{ weather.current.weather[0].icon }}</div>
 
-        <div class="location-box">
-          <div class="location">{{ weather.timezone }}</div>
-          <div class="temp">{{ Math.round(weather.current.temp) }}°C</div>
-        </div>
-
-        <div class="weather-box">
-          <div>
-            <ul>
-              <li>Humidity: {{ weather.current.humidity }}%</li>
-              <li>UVI: {{ weather.current.uvi }}</li>
-              <li>Wind: {{ toTextualDescription(weather.current.wind_deg) }} {{ weather.current.wind_speed }}km/h</li>
-              <li>Test: {{ Math.round(daily[1].temp.max) }}°C</li>
-            </ul>
+          <div class="location-box">
+            <div class="location">{{ weather.timezone }}</div>
+            <div class="temp">{{ Math.round(weather.current.temp) }}°C</div>
           </div>
-          <div class="weather">{{ weather.current.weather[0].main }}</div>
+
+          <div class="weather-box">
+            <div>
+              <ul>
+                <li>Humidity: {{ weather.current.humidity }}%</li>
+                <li>UVI: {{ weather.current.uvi }}</li>
+                <li>Wind: {{ toTextualDescription(weather.current.wind_deg) }} {{ weather.current.wind_speed }}km/h</li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div class="forecast-box" v-for="days in daily" v-bind:key="days.id">
+        <div class="weather-forecast" v-for="days in daily" v-bind:key="days.id">
           <div>
             <ul>
-              <li>{{ setDay(days.dt) }}</li>
+              <li><icon :name="days.weather[0].icon"></icon>{{ days.weather[0].icon }}</li>
+              <li><span class="forecast-day">{{ setDay(days.dt) }}</span></li>
               <li><span class="forecast-max">Max: {{ Math.round(days.temp.max) }}°C</span></li>
               <li><span class="forecast-min">Min: {{ Math.round(days.temp.min) }}°C</span></li>
             </ul>
@@ -35,6 +37,8 @@
 
 <script>
   import axios from "axios"
+  import Icon from "@/components/Icon.vue"
+  
   export default {
     name: "App",
     data() {
@@ -46,6 +50,9 @@
     },
     created() {
       this.getWeather();
+    },
+    components: {
+      Icon
     },
     methods: {
       getWeather() {
@@ -62,6 +69,7 @@
 
       setDaily (results) {
         this.daily = results
+        console.log(results);
       },
 
       setDay (timestamp) {
@@ -88,25 +96,36 @@
 </script>
 
 <style lang="scss">
+  @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
-
-  #app {
-    background: linear-gradient(180deg, #0668C2 0%, #1C0168 100%, rgba(68, 12, 158, 0) 100%), #C4C4C4;
+    font-family: 'Roboto', sans-serif;
   }
 
   main {
-    min-height: 100vh;
     padding: 1.5rem;
+  }
+
+  .weather-container {
+    max-width: 900px;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    background: linear-gradient(180deg, #0668C2 0%, #1C0168 100%, rgba(68, 12, 158, 0) 100%), #C4C4C4;
   }
 
   .location-box {
     color: #FFF;
-    font-size: 2rem;
-    font-weight: 500;
+
+    .location {
+      font-size: 1.375rem;
+    }
+
+    .temp {
+      font-size: 1.25rem;
+    }
   }
 
   .weather-box {
@@ -115,6 +134,7 @@
     ul li {
       color: #FFF;
       list-style: none;
+      font-size: 0.938rem;
     }
 
     .temp {
@@ -132,19 +152,17 @@
 
       box-shadow: 0.188rem 0.375rem rgba(0,0,0, 0.25);
     }
-
-    .weather {
-      color: #FFF;
-      font-size: 3rem;
-      font-weight: 700;
-      font-style: italic;
-      text-shadow: 0.188rem 0.375rem rgba(0,0,0, 0.25);
-    }
   }
 
-  .forecast-box {
+  .weather-forecast {
     ul li {
       list-style: none;
+      font-size: 0.75rem;
+    }
+
+    .forecast-day {
+      color: #FFF;
+      font-size: 0.938rem;
     }
 
     .forecast-max {
