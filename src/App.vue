@@ -14,9 +14,19 @@
               <li>Humidity: {{ weather.current.humidity }}%</li>
               <li>UVI: {{ weather.current.uvi }}</li>
               <li>Wind: {{ toTextualDescription(weather.current.wind_deg) }} {{ weather.current.wind_speed }}km/h</li>
+              <li>Test: {{ Math.round(daily[1].temp.max) }}°C</li>
             </ul>
           </div>
           <div class="weather">{{ weather.current.weather[0].main }}</div>
+        </div>
+        <div class="forecast-box" v-for="days in daily" v-bind:key="days.id">
+          <div>
+            <ul>
+              <li>{{ setDay(days.dt) }}</li>
+              <li><span class="forecast-max">Max: {{ Math.round(days.temp.max) }}°C</span></li>
+              <li><span class="forecast-min">Min: {{ Math.round(days.temp.min) }}°C</span></li>
+            </ul>
+          </div>
         </div>
       </div>
     </main>
@@ -30,7 +40,6 @@
     data() {
       return {
         api_key: '7f969b4e4cd395bbf697ef76cc218216',
-        city: "Madrid",
         weather: {},
         daily: {}
       }
@@ -42,8 +51,6 @@
       getWeather() {
         axios.get(`https://api.openweathermap.org/data/2.5/onecall?lon=2.159&lat=41.3888&units=metric&appid=${this.api_key}`)
         .then(response => {
-          console.log(response.data);
-          console.log(response.data.daily.slice(0, 6));
           this.setResults(response.data);
           this.setDaily(response.data.daily.slice(0, 6))
         });
@@ -55,6 +62,14 @@
 
       setDaily (results) {
         this.daily = results
+      },
+
+      setDay (timestamp) {
+        let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+        const date = new Date(timestamp * 1000);
+        let weekday = days[date.getDay()];
+        return weekday
       },
 
       toTextualDescription(degree){
@@ -124,6 +139,20 @@
       font-weight: 700;
       font-style: italic;
       text-shadow: 0.188rem 0.375rem rgba(0,0,0, 0.25);
+    }
+  }
+
+  .forecast-box {
+    ul li {
+      list-style: none;
+    }
+
+    .forecast-max {
+      color: #FF0000;
+    }
+
+    .forecast-min {
+      color: #00FFFF;
     }
   }
 </style>
