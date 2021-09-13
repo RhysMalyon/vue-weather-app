@@ -10,7 +10,7 @@
             <ul>
               <li>Humidity: {{ weather.current.humidity }}%</li>
               <li>UVI: {{ weather.current.uvi }}</li>
-              <li>Wind: {{ toTextualDescription(weather.current.wind_deg) }} {{ Math.round(weather.current.wind_speed * 3.6) }}km/h</li>
+              <li>Wind: {{ degreeToDirection(weather.current.wind_deg) }} {{ Math.round(weather.current.wind_speed * 3.6) }}km/h</li>
             </ul>
           </div>
         </div>
@@ -36,58 +36,13 @@
 </template>
 
 <script>
-  import axios from "axios"
+  import degreeToDirectionMixin from "./mixins/degreeToDirectionMixin"
+  import getWeatherMixin from "./mixins/getWeatherMixin"
+  import setDayMixin from "./mixins/setDayMixin"
   
   export default {
     name: "App",
-    data() {
-      return {
-        api_key: '7f969b4e4cd395bbf697ef76cc218216',
-        weather: {},
-        daily: {}
-      }
-    },
-    created() {
-      this.getWeather();
-    },
-    methods: {
-      getWeather() {
-        axios.get(`https://api.openweathermap.org/data/2.5/onecall?lon=2.159&lat=41.3888&units=metric&appid=${this.api_key}`)
-        .then(response => {
-          this.setResults(response.data);
-          this.setDaily(response.data.daily.slice(0, 6))
-        });
-      },
-
-      setResults (results) {
-        this.weather = results
-      },
-
-      setDaily (results) {
-        this.daily = results
-        console.log(results);
-      },
-
-      setDay (timestamp) {
-        let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-        const date = new Date(timestamp * 1000);
-        let weekday = days[date.getDay()];
-        return weekday
-      },
-
-      toTextualDescription(degree){
-        if (degree > 337.5) return 'N';
-        if (degree > 292.5) return 'NW';
-        if (degree > 247.5) return 'W';
-        if (degree > 202.5) return 'SW';
-        if (degree > 157.5) return 'S';
-        if (degree > 122.5) return 'SE';
-        if (degree > 67.5)  return 'E';
-        if (degree > 22.5)  return 'NE';
-        return degree;
-      }
-    }
+    mixins: [degreeToDirectionMixin ,getWeatherMixin, setDayMixin]
   };
 </script>
 
