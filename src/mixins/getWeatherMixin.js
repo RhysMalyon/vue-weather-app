@@ -5,7 +5,8 @@ export default {
     return {
       api_key: `${process.env.VUE_APP_OPEN_WEATHER_API_KEY}`,
       weather: {},
-      daily: {}
+      daily: {},
+      location: ''
     }
   },
   created() {
@@ -26,6 +27,6 @@ export default {
 
     setDaily (results) {
       this.daily = results
-    }
+    },
   }
 }
