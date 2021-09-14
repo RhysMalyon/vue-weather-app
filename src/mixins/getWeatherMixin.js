@@ -22,6 +22,7 @@ export default {
 
     setResults (results) {
       this.weather = results
+      console.log(results)
     },
 
     setDaily (results) {

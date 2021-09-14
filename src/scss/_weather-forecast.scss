@@ -1,0 +1,89 @@
+.weather-forecast {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  
+  padding-top: 1.25rem;
+
+  .forecast-header {
+    padding: 0.75rem;
+  }
+
+  .forecast-content {
+    line-height: 1.25rem;
+  }
+
+  ul li {
+    list-style: none;
+    font-size: 0.75rem;
+  }
+
+  .forecast-day {
+    color: #FFF;
+    font-size: 0.938rem;
+  }
+
+  .forecast-icon {
+    width: 4rem;
+    height: 4rem;
+    margin-top: 0.5rem;
+  }
+
+  .forecast-max {
+    color: #FF0000;
+  }
+
+  .forecast-min {
+    color: #00FFFF;
+  }
+}
+
+@media (max-width: 636px) {
+  .weather-forecast {
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    .forecast-responsive {
+      display: flex;
+    }
+
+    .forecast-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 50%;
+    }
+
+    .forecast-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      width: 50%;
+    }
+
+    .forecast-icon {
+      margin-left: 0.5rem;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .weather-forecast {
+    .forecast-day {
+      font-size: 0.75rem;
+    }
+
+    .forecast-icon {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    .forecast-max {
+      font-size: 0.75rem;
+    }
+
+    .forecast-min {
+      font-size: 0.75rem;
+    }
+  }
+}

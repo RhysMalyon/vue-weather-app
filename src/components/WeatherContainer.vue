@@ -17,3 +17,7 @@
     }
   }
 </script>
+
+<style lang="scss">
+  @import '../scss/weather-container.scss'
+</style>

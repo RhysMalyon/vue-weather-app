@@ -1,0 +1,63 @@
+.weather-current {
+  color: #FFF;
+  display: flex;
+
+  .current-icon {
+    width: 8rem;
+    height: 8rem;
+    padding-left: 0.75rem;
+  }
+
+  .current-content {
+    line-height: 1.5rem;
+    margin-left: 1.5rem;
+  }
+
+  .location {
+    font-size: 1.375rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .temp {
+    font-size: 1.25rem;
+  }
+
+  ul li {
+    list-style: none;
+    font-size: 0.938rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .weather-current {
+    
+    .weather {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .current-icon {
+      width: 4rem;
+      height: 4rem;
+      padding-left: 0.75rem;
+    }
+
+    .current-content {
+      line-height: 1.25rem;
+    }
+
+    .location {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .temp {
+      font-size: 1rem;
+    }
+
+    ul li {
+      font-size: 0.8rem;
+    }
+  }
+}

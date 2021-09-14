@@ -26,3 +26,7 @@
     mixins: [getWeatherMixin, setDayMixin]
   }
 </script>
+
+<style lang="scss">
+  @import '../scss/weather-forecast.scss'
+</style>
