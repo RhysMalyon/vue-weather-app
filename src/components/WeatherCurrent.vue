@@ -22,3 +22,7 @@
     mixins: [degreeToDirectionMixin, getWeatherMixin]
   }
 </script>
+
+<style lang="scss">
+  @import '../scss/weather-current.scss'
+</style>
