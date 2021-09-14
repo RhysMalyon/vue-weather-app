@@ -1,48 +1,19 @@
 <template>
   <div id="app">
     <main>
-      <div class="weather-container" v-if="typeof weather !='undefined'">
-        <div class="weather-current">
-          <div class="weather"><icon :name="weather.current.weather[0].icon" class="current-icon"></icon></div>
-          <div class="current-content">
-            <div class="location">{{ weather.timezone }}</div>
-            <div class="temp">{{ Math.round(weather.current.temp) }}°</div>
-            <ul>
-              <li>Humidity: {{ weather.current.humidity }}%</li>
-              <li>UVI: {{ weather.current.uvi }}</li>
-              <li>Wind: {{ degreeToDirection(weather.current.wind_deg) }} {{ Math.round(weather.current.wind_speed * 3.6) }}km/h</li>
-            </ul>
-          </div>
-        </div>
-        <div class="weather-forecast">
-          <div v-for="days in daily" v-bind:key="days.id">
-            <ul>
-              <div class="forecast-responsive">
-                <div class="forecast-header">
-                  <li><span class="forecast-day">{{ setDay(days.dt) }}</span></li>
-                  <li><icon :name="days.weather[0].icon" class="forecast-icon"></icon></li>
-                </div>
-                <div class="forecast-content">
-                  <li><span class="forecast-max">{{ Math.round(days.temp.max) }}°C</span></li>
-                  <li><span class="forecast-min">{{ Math.round(days.temp.min) }}°C</span></li>
-                </div>
-              </div>
-            </ul>
-          </div>
-        </div>
-      </div>
+      <weather-container />
     </main>
   </div>
 </template>
 
 <script>
-  import degreeToDirectionMixin from "./mixins/degreeToDirectionMixin"
-  import getWeatherMixin from "./mixins/getWeatherMixin"
-  import setDayMixin from "./mixins/setDayMixin"
+  import WeatherContainer from './components/WeatherContainer.vue'
   
   export default {
     name: "App",
-    mixins: [degreeToDirectionMixin ,getWeatherMixin, setDayMixin]
+    components: {
+      WeatherContainer,
+    }
   };
 </script>
 
