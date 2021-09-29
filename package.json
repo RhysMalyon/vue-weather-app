@@ -10,8 +10,10 @@
   "dependencies": {
     "axios": "^0.21.4",
     "core-js": "^3.6.5",
+    "sass": "^1.42.1",
     "vue": "^2.6.11",
-    "vue-axios": "^3.3.6"
+    "vue-axios": "^3.3.6",
+    "webpack": "^5.55.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -20,7 +22,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "sass-loader": "^10.0.5",
+    "sass-loader": "^10",
     "vue-svg-loader": "^0.16.0",
     "vue-template-compiler": "^2.6.11"
   },
